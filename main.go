@@ -1,12 +1,20 @@
+//go:generate file2byteslice -input vXboxInterface.dll -output vxbox/vxboxdll.go -package vxbox -var xboxDLL
+//go:generate gofmt -s -w .
 package main
 
 import (
+	"embed"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log"
+	"net"
 	"net/http"
+	"os"
+	"os/signal"
 	"strconv"
 	"strings"
+	"syscall"
 	"webvxbox/vxbox"
 
 	"github.com/gorilla/websocket"
@@ -17,6 +25,9 @@ var addr = flag.String("addr", "0.0.0.0:8080", "http service address")
 var upgrader = websocket.Upgrader{} // use default options
 
 var clients = make(map[string]*vxbox.Vxbox)
+
+//go:embed static/*
+var staticFS embed.FS
 
 func xboxHandler(w http.ResponseWriter, r *http.Request) {
 	c, err := upgrader.Upgrade(w, r, nil)
@@ -77,11 +88,36 @@ func get_agent(s string) string {
 	}
 	return ""
 }
+
+func GetOutboundIP() net.IP {
+	conn, err := net.Dial("udp", "8.8.8.8:80")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+
+	localAddr := conn.LocalAddr().(*net.UDPAddr)
+
+	return localAddr.IP
+}
+
 func main() {
+	c := make(chan (os.Signal))
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-c
+		vxbox.Cleanup()
+		fmt.Println("exiting")
+		os.Exit(1)
+	}()
+
 	flag.Parse()
 	log.SetFlags(0)
 	http.HandleFunc("/ter", xboxHandler)
-	http.Handle("/", http.FileServer(http.Dir("static")))
+	dir, _ := fs.Sub(staticFS, "static")
 
+	http.Handle("/", http.FileServer(http.FS(dir)))
+	log.Printf("Server running on %s:8080", GetOutboundIP())
 	log.Fatal(http.ListenAndServe(*addr, nil))
+
 }

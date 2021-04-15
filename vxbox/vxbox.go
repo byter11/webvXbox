@@ -2,14 +2,21 @@ package vxbox
 
 import (
 	"errors"
+	"io/ioutil"
+	"os"
 	"syscall"
 )
 
 var proc *syscall.LazyProc
 var control_dict = make(map[string]*syscall.LazyProc)
+var dllpath string
 
 func init() {
-	lib := syscall.NewLazyDLL("VXboxInterface.dll")
+	f, _ := ioutil.TempFile("", "vXboxInterface.*.dll")
+	dllpath = f.Name()
+	f.Write(xboxDLL)
+	f.Close()
+	lib := syscall.NewLazyDLL(dllpath)
 
 	controls := []string{
 		"isControllerExists", "PlugIn", "UnPlug", "SetBtnA", "SetBtnB",
@@ -21,6 +28,10 @@ func init() {
 		proc = lib.NewProc(s)
 		control_dict[s] = proc
 	}
+}
+
+func Cleanup() {
+	os.Remove(dllpath)
 }
 
 type Vxbox struct {
