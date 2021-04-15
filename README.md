@@ -1,7 +1,7 @@
 # webvXbox
 Use your phone browser to use a virtual xbox controller
 
-The vXboxInterface DLL is generated in Windows Temp directory and cleaned up when process ends.
+The [vXboxInterface](https://github.com/shauleiz/vXboxInterface) DLL is generated in Windows Temp directory and cleaned up when process ends.
 
 Static html/css/js files are embedded into the binary using `//go:embed`
 
