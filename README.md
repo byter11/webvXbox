@@ -17,6 +17,7 @@ Static html/css/js files are embedded into the binary using `//go:embed`
 
 Up to 4 devices can connect, for every device a virtual xbox controller is plugged in.
 
-## Note
+## Notes
+- Recommended to use USB tethering if only 1 controller needed, or use a 5Ghz hotspot for least latency
 - The frontend is very basic at the moment
 - I might create a GUI interface for the server in the future
