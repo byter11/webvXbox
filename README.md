@@ -12,7 +12,7 @@ Static html/css/js files are embedded into the binary using `//go:embed`
 - `go install`
 ### Build webvXbox
 - `go generate`
-- `go build`
+- `go build main.go`
 - `webvxbox.exe`
 
 Up to 4 devices can connect, for every device a virtual xbox controller is plugged in.
