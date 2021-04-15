@@ -6,6 +6,11 @@ The [vXboxInterface](https://github.com/shauleiz/vXboxInterface) DLL is generate
 Static html/css/js files are embedded into the binary using `//go:embed`
 
 ## How to Build and Run
+### Install file2byteslice
+- `git clone https://github.com/hajimehoshi/file2byteslice`
+- `cd file2byteslice/cmd/file2byteslice`
+- `go install`
+### Build webvXbox
 - `go generate`
 - `go build`
 - `webvxbox.exe`
