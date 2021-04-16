@@ -1,7 +1,7 @@
 // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/socket.io/');
 // var joy = new JoyStick('dpad', {"internalFillColor": "#DCDCDC", "externalStrokeColor": "black"});
 
-const ws = new WebSocket("ws://" + document.domain + ':' + location.port + "/ter");
+const ws = new WebSocket("ws://" + document.domain + ':' + location.port + "/xbox");
 var joy = new JoyStick('Axis')
 
 ws.addEventListener('open', function (event) {
@@ -23,7 +23,7 @@ function setupbuttons() {
             anchor.ontouchstart = function (ev) {
                 ev.preventDefault();
                 ev.stopPropagation();
-                ws.send(`${cls}${id}|1`);
+                ws.send(`${cls}${id}|1`);   //eg: BtnA|1, TriggerR|1
                 anchor.style.position = "relative";
                 anchor.style.top = "3px";
                 
