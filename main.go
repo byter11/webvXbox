@@ -107,13 +107,13 @@ func main() {
 	go func() {
 		<-c
 		vxbox.Cleanup()
-		fmt.Println("exiting")
+		fmt.Println("Exit.")
 		os.Exit(1)
 	}()
 
 	flag.Parse()
 	log.SetFlags(0)
-	http.HandleFunc("/ter", xboxHandler)
+	http.HandleFunc("/xbox", xboxHandler)
 	dir, _ := fs.Sub(staticFS, "static")
 
 	http.Handle("/", http.FileServer(http.FS(dir)))
