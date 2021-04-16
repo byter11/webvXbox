@@ -57,6 +57,24 @@ body {
 	text-decoration:none;
 }
 
+.mid-btn {
+	border: 1px solid black;
+	margin-top : 40px;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+}
+.mid-btn::after {
+	display: block;
+	width: 0; 
+  	height: 0; 
+	margin: 20% 30%;
+	border-radius: 2px;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 15px solid #696969;
+	content: "";
+}
 @media only screen and (max-width: 600px){
 	.main-btn {
 		font-size: 30px;
@@ -67,4 +85,5 @@ body {
 		height: 180px;
 	}
 }
+
 
