@@ -1,4 +1,4 @@
-//go:generate file2byteslice -input vXboxInterface.dll -output vxbox/vxboxdll.go -package vxbox -var xboxDLL
+//go:generate file2byteslice -input vXboxInterface.dll -output vgamepad/vxboxdll.go -package vgamepad -var xboxDLL
 //go:generate gofmt -s -w .
 package main
 
@@ -15,7 +15,7 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
-	"webvxbox/vxbox"
+	"webvxbox/vgamepad"
 
 	"github.com/gorilla/websocket"
 )
@@ -24,7 +24,7 @@ var addr = flag.String("addr", "0.0.0.0:8080", "http service address")
 
 var upgrader = websocket.Upgrader{} // use default options
 
-var clients = make(map[string]*vxbox.Vxbox)
+var clients = make(map[string]*vgamepad.Vgamepad)
 
 //go:embed static/*
 var staticFS embed.FS
@@ -39,12 +39,15 @@ func xboxHandler(w http.ResponseWriter, r *http.Request) {
 	id := r.Header["Sec-Websocket-Key"][0]
 
 	var e error
-	clients[id], e = vxbox.New()
+	clients[id], e = vgamepad.New()
 	if e != nil {
 		delete(clients, id)
 		c.Close()
+		log.Print("vgamepad:", e)
+		return
 	}
 	fmt.Println(get_agent(r.Header["User-Agent"][0]), "Connected on Port", clients[id].Port)
+
 	defer c.Close()
 	defer disconnect_controller(id)
 
@@ -69,7 +72,6 @@ func xboxHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			clients[id].SetBtn(control[0], value)
 		}
-		// log.Printf("recv:  %s", control)
 	}
 }
 
@@ -106,7 +108,7 @@ func main() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
-		vxbox.Cleanup()
+		vgamepad.Cleanup()
 		fmt.Println("Exit.")
 		os.Exit(1)
 	}()
@@ -117,7 +119,8 @@ func main() {
 	dir, _ := fs.Sub(staticFS, "static")
 
 	http.Handle("/", http.FileServer(http.FS(dir)))
-	log.Printf("Server running on %s:8080", GetOutboundIP())
+	ip := GetOutboundIP()
+	log.Printf("WebSocket: ws://%s:8080/xbox", ip)
+	log.Printf("WebApp: http://%s:8080", ip)
 	log.Fatal(http.ListenAndServe(*addr, nil))
-
 }
