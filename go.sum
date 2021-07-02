@@ -1,5 +1,7 @@
-github.com/byter11/uinput v1.4.1-byter11 h1:d5KRQusliyVJ5S07yr2+PTd8+0uI9BUiZnUei6tunQo=
-github.com/byter11/uinput v1.4.1-byter11/go.mod h1:AVVtrdNt3nyupxQlSYop0Xerhgw27L1+fdMz2RmU2pg=
+github.com/bendahl/uinput v1.4.1 h1:ecxSLcVxWk0EFyZBtmCTnOKjK/HCNdsUcWXRTkNt06k=
+github.com/bendahl/uinput v1.4.1/go.mod h1:Np7w3DINc9wB83p12fTAM3DPPhFnAKP0WTXRqCQJ6Z8=
+github.com/byter11/uinput v1.4.2-0.20210702210129-5a98bf425f03 h1:Y/qVokuSVh1AZ7sdj+ntDBgY4NISbnL06mmUfxmKSv8=
+github.com/byter11/uinput v1.4.2-0.20210702210129-5a98bf425f03/go.mod h1:Np7w3DINc9wB83p12fTAM3DPPhFnAKP0WTXRqCQJ6Z8=
 github.com/byter11/uinput v1.4.2-gamepad h1:w6mUdPUNBFqFXpmjCMmb4aDiWr59JOwNf5tc7wfqC8c=
 github.com/byter11/uinput v1.4.2-gamepad/go.mod h1:AVVtrdNt3nyupxQlSYop0Xerhgw27L1+fdMz2RmU2pg=
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=

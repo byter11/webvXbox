@@ -11,15 +11,19 @@ import (
 )
 
 var btnMap = map[string]int{
-	"BtnA":     uinput.BtnA,
-	"BtnB":     uinput.BtnB,
-	"BtnX":     uinput.BtnX,
-	"BtnY":     uinput.BtnY,
-	"BtnStart": uinput.BtnStart,
-	"BtnLB":    uinput.BtnTL,
-	"BtnRB":    uinput.BtnTR,
-	"TriggerL": uinput.BtnTL2,
-	"TriggerR": uinput.BtnTR2,
+	"BtnA":      uinput.BtnA,
+	"BtnB":      uinput.BtnB,
+	"BtnX":      uinput.BtnX,
+	"BtnY":      uinput.BtnY,
+	"BtnStart":  uinput.BtnStart,
+	"BtnLB":     uinput.BtnTL,
+	"BtnRB":     uinput.BtnTR,
+	"TriggerL":  uinput.BtnTL2,
+	"TriggerR":  uinput.BtnTR2,
+	"DpadDown":  uinput.BtnDpadDown,
+	"DpadUp":    uinput.BtnDpadUp,
+	"DpadLeft":  uinput.BtnDpadLeft,
+	"DpadRight": uinput.BtnDpadRight,
 }
 
 func Cleanup() {
@@ -46,13 +50,12 @@ func New() (*Vgamepad, error) {
 
 	vg, err := uinput.CreateGamepad("/dev/uinput", []byte(fmt.Sprintf("Gamepad %d", port)))
 	if err != nil {
-		return nil, err 
+		return nil, err
 	}
 	return &Vgamepad{Port: port, vg: vg}, nil
 }
 
 func (v Vgamepad) SetBtn(function string, arg int) {
-	fmt.Print("jo")
 	if arg != 0 {
 		v.vg.BtnDown(btnMap[function])
 	} else {
@@ -61,7 +64,7 @@ func (v Vgamepad) SetBtn(function string, arg int) {
 }
 
 func (v Vgamepad) SetAxis(function string, x int, y int) {
-	v.vg.SetAxis(int32(x), int32(-y)
+	v.vg.SetAxis(int32(x), int32(-y))
 }
 
 func (v Vgamepad) UnPlug() {
