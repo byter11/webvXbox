@@ -61,7 +61,7 @@ func (v Vgamepad) SetBtn(function string, arg int) {
 }
 
 func (v Vgamepad) SetAxis(function string, x int, y int) {
-	v.vg.SetAxis(int32(x), int32(-y))
+	v.vg.SetAxis(int32(x), int32(-y)
 }
 
 func (v Vgamepad) UnPlug() {
