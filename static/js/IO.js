@@ -2,7 +2,8 @@
 // var joy = new JoyStick('dpad', {"internalFillColor": "#DCDCDC", "externalStrokeColor": "black"});
 
 const ws = new WebSocket("ws://" + document.domain + ':' + location.port + "/xbox");
-var joy = new JoyStick('Axis', {internalFillColor: "rgb(48, 47, 47)", internalStrokeColor: "black", externalStrokeColor: "black"})
+// var joy = new JoyStick('Axis', {internalFillColor: "rgb(48, 47, 47)", internalStrokeColor: "black", externalStrokeColor: "black"})
+var joy = new JoyStick('AxisR', {internalFillColor: "rgb(48, 47, 47)", internalStrokeColor: "black", externalStrokeColor: "black"})
 
 ws.addEventListener('open', function (event) {
 });
