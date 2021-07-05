@@ -1,16 +1,16 @@
 // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/socket.io/');
 // var joy = new JoyStick('dpad', {"internalFillColor": "#DCDCDC", "externalStrokeColor": "black"});
 
-// const ws = new WebSocket("ws://" + document.domain + ':' + location.port + "/xbox");
+const ws = new WebSocket("ws://" + document.domain + ':' + location.port + "/xbox");
 // var joy = new JoyStick('Axis', {internalFillColor: "rgb(48, 47, 47)", internalStrokeColor: "black", externalStrokeColor: "black"})
 var joy = new JoyStick('AxisR', {internalFillColor: "rgb(48, 47, 47)", internalStrokeColor: "black", externalStrokeColor: "black"})
 
 var dpadVal = 0;
 
-// ws.addEventListener('open', function (event) {});
+ws.addEventListener('open', function (event) {});
 
 window.onload = function() {
-    // setupbuttons();
+    setupbuttons();
 }
 
 function setupbuttons() {
@@ -41,24 +41,23 @@ function setupbuttons() {
 }
 
 document.getElementById('dpad-object').onload = function(){
-    var paths = document.getElementById('dpad-object').contentDocument;
-    console.log(paths);
-// for (var i = 0; i < anchors.length; i++) {
-//     var path = paths[i];
-//     const weight = path.dataset.weight;
-//     console.log(weight);
-//     path.ontouchstart = function (ev) {
-//         ev.preventDefault();
-//         ev.stopPropagation();
-//         dpadVal += +weight;
-//         ws.send(`Dpad|${dpadVal}`);
-//         path.style.top = "3px";
-//     }
-//     path.ontouchend = function (ev) {
-//         ev.preventDefault();
-//         dpadVal += +weight;
-//         ws.send(`Dpad|${dpadVal}`);
-//         path.style.top = "0px";
-//     }
-// }
+    var paths = document.getElementById('dpad-object').contentDocument.getElementsByTagName('path');
+    // console.log(paths);
+for (var i = 0; i < paths.length; i++) {
+    var path = paths[i];
+    const weight = path.dataset.weight;
+    path.ontouchstart = function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        dpadVal += +weight;
+        ws.send(`Dpad|${dpadVal}`);
+        path.style.top = "3px";
+    }
+    path.ontouchend = function (ev) {
+        ev.preventDefault();
+        dpadVal -= +weight;
+        ws.send(`Dpad|${dpadVal}`);
+        path.style.top = "0px";
+    }
+}
 }

@@ -11,8 +11,13 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"webvxbox/player"
 	"webvxbox/vgamepad"
 )
+
+func EmitConnection(player *player.Player) {
+	fmt.Print(player.Name, " connected.")
+}
 
 func main() {
 	c := make(chan (os.Signal))

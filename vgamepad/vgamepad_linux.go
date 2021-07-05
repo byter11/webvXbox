@@ -56,6 +56,7 @@ func New() (*Vgamepad, error) {
 }
 
 func (v Vgamepad) SetBtn(function string, arg int) {
+	fmt.Print(function, arg)
 	if arg != 0 {
 		v.vg.BtnDown(btnMap[function])
 	} else {
