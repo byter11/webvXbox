@@ -4,6 +4,8 @@ go 1.16
 
 require (
 	github.com/bendahl/uinput v1.4.1
+	github.com/gen2brain/beeep v0.0.0-20210529141713-5586760f0cc1
+	github.com/getlantern/systray v1.1.0
 	// github.com/gen2brain/beeep v0.0.0-20210529141713-5586760f0cc1
 	// github.com/getlantern/systray v1.1.0
 	github.com/gorilla/websocket v1.4.2
@@ -12,4 +14,4 @@ require (
 
 )
 
-replace github.com/bendahl/uinput => github.com/byter11/uinput v1.4.2-0.20210702210129-5a98bf425f03
+replace github.com/bendahl/uinput => github.com/byter11/uinput v1.4.2-0.20210706114705-4da9bb60bcbb

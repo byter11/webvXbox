@@ -20,10 +20,6 @@ var btnMap = map[string]int{
 	"BtnRB":     uinput.BtnTR,
 	"TriggerL":  uinput.BtnTL2,
 	"TriggerR":  uinput.BtnTR2,
-	"DpadDown":  uinput.BtnDpadDown,
-	"DpadUp":    uinput.BtnDpadUp,
-	"DpadLeft":  uinput.BtnDpadLeft,
-	"DpadRight": uinput.BtnDpadRight,
 }
 
 func Cleanup() {
@@ -56,11 +52,10 @@ func New() (*Vgamepad, error) {
 }
 
 func (v Vgamepad) SetBtn(function string, arg int) {
-	fmt.Print(function, arg)
-	if arg != 0 {
-		v.vg.BtnDown(btnMap[function])
+	if function == "Dpad" {
+		v.vg.Dpad(arg)
 	} else {
-		v.vg.BtnUp(btnMap[function])
+		v.vg.BtnEv(btnMap[function], arg)
 	}
 }
 
