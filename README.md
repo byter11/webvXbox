@@ -14,12 +14,5 @@ Use your phone browser to use a virtual xbox controller
 - `go install`
 ### Build webvXbox
 - `go generate`
-- `go build`
+- `go build -ldflags -H=windowsgui` for Windows, `go build main.go server.go` for Linux
 - `webvxbox.exe`
-
-
-
-## Notes
-- Recommended to use USB tethering if only 1 controller needed, or use a 5Ghz hotspot for least latency
-- The frontend is very basic at the moment
-- I might create a GUI interface for the server in the future
