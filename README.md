@@ -8,11 +8,15 @@ Use your phone browser to use a virtual xbox controller
 - Static html/css/js files are embedded into the binary using `//go:embed`
 
 ## How to Build and Run
-### Install file2byteslice
+### Windows
+#### Install file2byteslice
 - `git clone https://github.com/hajimehoshi/file2byteslice`
 - `cd file2byteslice/cmd/file2byteslice`
 - `go install`
-### Build webvXbox
+#### Build webvXbox
 - `go generate`
-- `go build -ldflags -H=windowsgui` for Windows, `go build main.go server.go` for Linux
+- `go build -ldflags -H=windowsgui`
 - `webvxbox.exe`
+
+### Linux
+- `go build main.go server.go`
