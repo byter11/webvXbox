@@ -9,10 +9,9 @@ Use your phone browser to use a virtual xbox controller
 
 ## How to Build and Run
 ### Windows
-#### Install file2byteslice
-- `git clone https://github.com/hajimehoshi/file2byteslice`
-- `cd file2byteslice/cmd/file2byteslice`
-- `go install`
+#### Install file2byteslice and 2goarray
+- `go install github.com/hajimehoshi/file2byteslice`
+- `go install github.com/cratonica/2goarray`
 #### Build webvXbox
 - `go generate`
 - `go build -ldflags -H=windowsgui`
